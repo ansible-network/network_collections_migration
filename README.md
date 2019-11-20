@@ -10,7 +10,7 @@ Install Ansible [collection_migration](https://github.com/ansible-community/coll
 Step 2:
 Run network collection migration scenario
 ```console
-(.venv) collection_migration$ git clone git@github.com:ganeshrn/network_collections_migration.git ~/network_collections_migration
+(.venv) collection_migration$ git clone https://github.com/ansible-network/network_collections_migration ~/network_collections_migration
 (.venv) collection_migration$ python3.7 -m migrate -s ~/network_collections_migration/scenarios/
 ```
 
@@ -21,7 +21,7 @@ Sample test
 ```console
 $ pip install paramiko
 ```
-2) Update inventory file [\~/network_collections_migration/inventory](https://github.com/ganeshrn/network_collections_migration/blob/master/inventory) as per your enviornment: 
+2) Update inventory file [\~/network_collections_migration/inventory](https://github.com/ansible-network/network_collections_migration/blob/master/inventory) as per your enviornment: 
 
 4) Setup [Ansible devel env](https://docs.ansible.com/ansible/latest/dev_guide/developing_modules_general.html#common-environment-setup)
 
