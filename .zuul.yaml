@@ -1,0 +1,56 @@
+---
+- job:
+    name: propose-network-collections-migration-base
+    parent: propose-github-updates
+    pre-run: tests/playbooks/pre.yaml
+    run: tests/playbooks/run.yaml
+    required-projects:
+      - name: github.com/ansible/ansible
+      - name: github.com/ansible-community/collection_migration
+    timeout: 3600
+    nodeset: fedora-latest-1vcpu
+
+- job:
+    name: propose-network-collections-migration-base
+    parent: unittests
+
+- job:
+    name: propose-network-collections-migration-arista-eos
+    parent: propose-network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-network/ansible_collections.arista.eos
+    vars:
+      ansible_collection_namespace: arista
+      ansible_collection_name: eos
+      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.arista.eos
+
+- job:
+    name: network-collections-migration-base
+    parent: unittests
+    pre-run: tests/playbooks/pre.yaml
+    run: tests/playbooks/run.yaml
+    required-projects:
+      - name: github.com/ansible/ansible
+      - name: github.com/ansible-community/collection_migration
+    timeout: 3600
+    nodeset: fedora-latest-1vcpu
+
+- job:
+    name: network-collections-migration-arista-eos
+    parent: network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-network/ansible_collections.arista.eos
+    vars:
+      ansible_collection_namespace: arista
+      ansible_collection_name: eos
+
+- project:
+    check:
+      jobs:
+        - network-collections-migration-arista-eos
+    gate:
+      jobs:
+        - network-collections-migration-arista-eos
+    post:
+      jobs:
+        - propose-network-collections-migration-arista-eos
