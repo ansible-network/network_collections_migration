@@ -72,6 +72,10 @@
 
         - network-collections-migration-arista-eos
         - network-collections-migration-cisco-ios
+    periodic:
+      jobs:
+        - propose-network-collections-migration-arista-eos
+        - propose-network-collections-migration-cisco-ios
     post:
       jobs:
         - propose-network-collections-migration-arista-eos
