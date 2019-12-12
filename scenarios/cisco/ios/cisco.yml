@@ -1,0 +1,17 @@
+ios:
+  module_utils:
+  - network/ios/*
+  - network/ios/*/*
+  - network/ios/*/*/*
+  - network/ios/*/*/*/*
+  - network/ios/*/*/*/*/*
+  modules:
+  - network/ios/*
+  action:
+  - ios.py
+  cliconf:
+  - ios.py
+  doc_fragments:
+  - ios.py
+  terminal:
+  - ios.py
