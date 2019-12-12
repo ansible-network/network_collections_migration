@@ -24,6 +24,16 @@
       proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.arista.eos
 
 - job:
+    name: propose-network-collections-migration-cisco-ios
+    parent: propose-network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-network/ansible_collections.cisco.ios
+    vars:
+      ansible_collection_namespace: cisco
+      ansible_collection_name: ios
+      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.cisco.ios
+
+- job:
     name: network-collections-migration-base
     parent: unittests
     pre-run: tests/playbooks/pre.yaml
@@ -43,13 +53,26 @@
       ansible_collection_namespace: arista
       ansible_collection_name: eos
 
+- job:
+    name: network-collections-migration-cisco-ios
+    parent: network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-network/ansible_collections.cisco.ios
+    vars:
+      ansible_collection_namespace: cisco
+      ansible_collection_name: ios
+
 - project:
     check:
       jobs:
         - network-collections-migration-arista-eos
+        - network-collections-migration-cisco-ios
     gate:
       jobs:
+
         - network-collections-migration-arista-eos
+        - network-collections-migration-cisco-ios
     post:
       jobs:
         - propose-network-collections-migration-arista-eos
+        - propose-network-collections-migration-cisco-ios
