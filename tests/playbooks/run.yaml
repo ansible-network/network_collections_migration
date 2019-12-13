@@ -91,13 +91,3 @@
         tox_envlist: black
         tox_install_siblings: false
         zuul_work_dir: "{{ zuul.projects[_collection_repo].src_dir }}"
-
-    - name: Prepare to commit files
-      args:
-        chdir: "{{ zuul.projects[_collection_repo].src_dir }}"
-      shell: git add --all
-
-    - name: Create git commit
-      args:
-        chdir: "{{ zuul.projects[_collection_repo].src_dir }}"
-      shell: "git commit -s -m 'Updated from network content collector'"
