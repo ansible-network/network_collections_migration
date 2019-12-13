@@ -1,0 +1,19 @@
+iosxr:
+  module_utils:
+  - network/iosxr/*
+  - network/iosxr/*/*
+  - network/iosxr/*/*/*
+  - network/iosxr/*/*/*/*
+  - network/iosxr/*/*/*/*/*
+  modules:
+  - network/iosxr/*
+  action:
+  - iosxr.py
+  cliconf:
+  - iosxr.py
+  doc_fragments:
+  - iosxr.py
+  netconf:
+  - iosxr.py
+  terminal:
+  - iosxr.py
