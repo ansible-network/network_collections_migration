@@ -3,6 +3,7 @@
     name: propose-network-collections-migration-base
     parent: propose-github-updates
     run: tests/playbooks/run.yaml
+    post-run: tests/playbooks/post.yaml
     required-projects:
       - name: github.com/ansible/ansible
       - name: github.com/ansible-community/collection_migration
