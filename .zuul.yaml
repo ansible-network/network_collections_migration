@@ -15,6 +15,16 @@
     parent: unittests
 
 - job:
+    name: propose-network-collections-migration-ansible-netcommon
+    parent: propose-network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-network/ansible_collections.ansible.netcommon
+    vars:
+      ansible_collection_namespace: ansible
+      ansible_collection_name: netcommon
+      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.ansible.netcommon
+
+- job:
     name: propose-network-collections-migration-arista-eos
     parent: propose-network-collections-migration-base
     required-projects:
@@ -46,6 +56,16 @@
     nodeset: fedora-latest-1vcpu
 
 - job:
+    name: network-collections-migration-ansible-netcommon
+    parent: network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-network/ansible_collections.ansible.netcommon
+    vars:
+      ansible_collection_namespace: ansible
+      ansible_collection_name: netcommon
+      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.ansible.netcommon
+
+- job:
     name: network-collections-migration-arista-eos
     parent: network-collections-migration-base
     required-projects:
@@ -66,18 +86,21 @@
 - project:
     check:
       jobs:
+        - network-collections-migration-ansible-netcommon
         - network-collections-migration-arista-eos
         - network-collections-migration-cisco-ios
     gate:
       jobs:
-
+        - network-collections-migration-ansible-netcommon
         - network-collections-migration-arista-eos
         - network-collections-migration-cisco-ios
     periodic:
       jobs:
+        - propose-network-collections-migration-ansible-netcommon
         - propose-network-collections-migration-arista-eos
         - propose-network-collections-migration-cisco-ios
     post:
       jobs:
+        - propose-network-collections-migration-ansible-netcommon
         - propose-network-collections-migration-arista-eos
         - propose-network-collections-migration-cisco-ios
