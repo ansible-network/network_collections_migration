@@ -6,7 +6,8 @@
     post-run: tests/playbooks/post.yaml
     required-projects:
       - name: github.com/ansible/ansible
-      - name: github.com/ansible-community/collection_migration
+      - name: github.com/ansible-network/collection_migration
+        override-checkout: feature/network-collections
     timeout: 3600
     nodeset: fedora-latest-1vcpu
 
@@ -61,7 +62,8 @@
     run: tests/playbooks/run.yaml
     required-projects:
       - name: github.com/ansible/ansible
-      - name: github.com/ansible-community/collection_migration
+      - name: github.com/ansible-network/collection_migration
+        override-checkout: feature/network-collections
     timeout: 3600
     nodeset: fedora-latest-1vcpu
 
@@ -102,7 +104,10 @@
       ansible_collection_namespace: cisco
       ansible_collection_name: iosxr
 
-- project:
+- project-template:
+    name: network-collections-migration
+    description: |
+      A common set of migration jobs used by ansible network team
     check:
       jobs:
         - network-collections-migration-ansible-netcommon
@@ -110,6 +115,7 @@
         - network-collections-migration-cisco-ios
         - network-collections-migration-cisco-iosxr
     gate:
+      queue: network-collections-migration
       jobs:
         - network-collections-migration-ansible-netcommon
         - network-collections-migration-arista-eos
@@ -127,3 +133,7 @@
         - propose-network-collections-migration-arista-eos
         - propose-network-collections-migration-cisco-ios
         - propose-network-collections-migration-cisco-iosxr
+
+- project:
+    templates:
+      - network-collections-migration

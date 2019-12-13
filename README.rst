@@ -50,13 +50,16 @@ periodic pipelines to create new PRs if needed against:
 
 While still editing .zuul.yaml add the jobs to the pipelines:
 
-    - project:
+    - project-template:
+        name: network-collections-migration
+        description: |
+          A common set of migration jobs used by ansible network team
         check:
           jobs:
             - network-collections-migration-example-fake
         gate:
+          queue: network-collections-migration
           jobs:
-
             - network-collections-migration-example-fake
         periodic:
           jobs:
