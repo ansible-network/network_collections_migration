@@ -1,4 +1,4 @@
-common:
+netcommon:
   module_utils:
   - network/common/*
   - network/common/*/*
