@@ -87,6 +87,10 @@ Next, create scenarios/example/fake/example.yml with content to migrate:
 
 Save and close file.
 
+Lastly, create symlink to ansible.netcommon from scenarios/example/fake:
+
+  ln -s ../../ansible/netcommon/ansible.yml .
+
 Finally create a PR to github, to preform code review.
 
 If successful, once the PR is merged, the network-collections-migration-example-fake
