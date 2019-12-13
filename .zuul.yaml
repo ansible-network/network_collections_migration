@@ -8,6 +8,7 @@
       - name: github.com/ansible/ansible
       - name: github.com/ansible-network/collection_migration
         override-checkout: feature/network-collections
+      - name: github.com/ansible-network/network_collections_migration
     timeout: 3600
     nodeset: fedora-latest-1vcpu
 
@@ -64,6 +65,7 @@
       - name: github.com/ansible/ansible
       - name: github.com/ansible-network/collection_migration
         override-checkout: feature/network-collections
+      - name: github.com/ansible-network/network_collections_migration
     timeout: 3600
     nodeset: fedora-latest-1vcpu
 
