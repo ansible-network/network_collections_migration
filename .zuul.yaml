@@ -28,6 +28,9 @@
 
 - job:
     name: propose-network-collections-migration-arista-eos
+    dependencies:
+      - name: propose-network-collections-migration-ansible-netcommon
+        soft: true
     parent: propose-network-collections-migration-base
     required-projects:
       - name: github.com/ansible-network/ansible_collections.arista.eos
@@ -38,6 +41,9 @@
 
 - job:
     name: propose-network-collections-migration-cisco-ios
+    dependencies:
+      - name: propose-network-collections-migration-ansible-netcommon
+        soft: true
     parent: propose-network-collections-migration-base
     required-projects:
       - name: github.com/ansible-network/ansible_collections.cisco.ios
@@ -48,6 +54,9 @@
 
 - job:
     name: propose-network-collections-migration-cisco-iosxr
+    dependencies:
+      - name: propose-network-collections-migration-ansible-netcommon
+        soft: true
     parent: propose-network-collections-migration-base
     required-projects:
       - name: github.com/ansible-network/ansible_collections.cisco.iosxr
