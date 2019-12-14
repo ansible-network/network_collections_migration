@@ -91,3 +91,8 @@
         tox_envlist: black
         tox_install_siblings: false
         zuul_work_dir: "{{ zuul.projects[_collection_repo].src_dir }}"
+
+    - name: Show git diff
+      args:
+        chdir: "{{ zuul.projects[_collection_repo].src_dir }}"
+      shell: git --no-pager diff
