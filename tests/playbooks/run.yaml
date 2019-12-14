@@ -92,7 +92,12 @@
         tox_install_siblings: false
         zuul_work_dir: "{{ zuul.projects[_collection_repo].src_dir }}"
 
+    - name: Prepare to commit files
+      args:
+        chdir: "{{ zuul.projects[_collection_repo].src_dir }}"
+      shell: git add --all
+
     - name: Show git diff
       args:
         chdir: "{{ zuul.projects[_collection_repo].src_dir }}"
-      shell: git --no-pager diff
+      shell: git --no-pager diff --staged
