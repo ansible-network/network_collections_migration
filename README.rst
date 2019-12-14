@@ -64,10 +64,14 @@ While still editing .zuul.yaml add the jobs to the pipelines:
           queue: network-collections-migration
           jobs:
             - network-collections-migration-example-fake
-        periodic:
+        post:
           jobs:
             - propose-network-collections-migration-example-fake
-        post:
+
+    - project:
+        templates:
+          - network-collections-migration
+        periodic:
           jobs:
             - propose-network-collections-migration-example-fake
 
