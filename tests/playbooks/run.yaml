@@ -79,6 +79,11 @@
         remote_src: true
         src: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible/ansible'].src_dir }}/test/integration/network-integration.requirements.txt"
 
+    - name: Run tools/cleanup_tests.sh
+      args:
+        chdir: "{{ zuul.projects[_collection_repo].src_dir }}/tests"
+      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_tests.sh"
+
     - name: Run yamlf to format collection
       args:
         chdir: "{{ zuul.projects[_collection_repo].src_dir }}/tests"
