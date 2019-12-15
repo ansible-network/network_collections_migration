@@ -1,18 +1,19 @@
 import os
 from ruamel.yaml import YAML
 
-from ruamel.yaml import RoundTripDumper, RoundTripLoader
-
 
 def sequence_indent_four(s):
     # this will fail on direclty nested lists: {1; [[2, 3], 4]}
     levels = []
     ret_val = ''
+    loop = 0
+    linebreak = ''
     for line in s.splitlines(True):
         ls = line.lstrip()
         indent = len(line) - len(ls)
         if ls.startswith('- '):
-            space = ''
+            if loop > 1:
+               linebreak = '\n'
             if not levels or indent > levels[-1]:
                 levels.append(indent)
             elif levels:
@@ -26,9 +27,11 @@ def sequence_indent_four(s):
                         levels = levels[:-1]
 
         if indent == 0:
-            ret_val += '' * len(levels) + line
+            ret_val += linebreak + '' * len(levels) + line
         else:
             ret_val += '  ' * (len(levels) - 1) + line
+        loop += 1
+
     return ret_val
 
 def read_yaml_file(filename):
@@ -42,7 +45,6 @@ def read_yaml_file(filename):
 
     with open(filename, 'w') as f:
         yaml.dump(data, f, transform=sequence_indent_four)
-        #yaml.dump(data, f)
 
 
 def read_meta_file(filename):
@@ -56,7 +58,6 @@ def read_meta_file(filename):
         data = yaml.load(stream)
 
     with open(filename, 'w') as f:
-        #yaml.dump(data, f, transform=sequence_indent_four)
         yaml.dump(data, f)
 
 files = []
