@@ -2,7 +2,10 @@
 - job:
     name: propose-network-collections-migration-base
     parent: propose-github-updates
-    run: tests/playbooks/run.yaml
+    run:
+      - tests/playbooks/run-pre.yaml
+      - tests/playbooks/run.yaml
+      - tests/playbooks/run-post.yaml
     post-run: tests/playbooks/post.yaml
     required-projects:
       - name: github.com/ansible/ansible
@@ -11,6 +14,8 @@
       - name: github.com/ansible-network/network_collections_migration
     timeout: 3600
     nodeset: fedora-latest-1vcpu
+    vars:
+      ansible_collection_repo: "github.com/ansible-network/ansible_collections.{{ ansible_collection_namespace }}.{{ ansible_collection_name }}"
 
 - job:
     name: propose-network-collections-migration-base
@@ -69,7 +74,10 @@
     name: network-collections-migration-base
     parent: unittests
     pre-run: tests/playbooks/pre.yaml
-    run: tests/playbooks/run.yaml
+    run:
+      - tests/playbooks/run-pre.yaml
+      - tests/playbooks/run.yaml
+      - tests/playbooks/run-post.yaml
     required-projects:
       - name: github.com/ansible/ansible
       - name: github.com/ansible-network/collection_migration
@@ -77,6 +85,8 @@
       - name: github.com/ansible-network/network_collections_migration
     timeout: 3600
     nodeset: fedora-latest-1vcpu
+    vars:
+      ansible_collection_repo: "github.com/ansible-network/ansible_collections.{{ ansible_collection_namespace }}.{{ ansible_collection_name }}"
 
 - job:
     name: network-collections-migration-ansible-netcommon

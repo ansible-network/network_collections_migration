@@ -1,0 +1,27 @@
+- hosts: all
+  tasks:
+    - name: Figure out ansible/ansible branch
+      set_fact:
+        __branch: "{{ zuul.projects['github.com/ansible/ansible'].checkout }}"
+
+    - name: Setup github remotes
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects[ansible_collection_repo].src_dir }}"
+      shell: "git remote set-url origin https://{{ ansible_collection_repo }}.git"
+
+    - name: Setup git to track remote branch
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects[ansible_collection_repo].src_dir }}"
+      shell: git branch --set-upstream-to=origin/master master
+      when: __branch in ['devel']
+
+    - name: Setup git to track remote branch
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects[ansible_collection_repo].src_dir }}"
+      shell: "git branch --set-upstream-to=origin/{{ __branch }} {{ __branch }}"
+      when: __branch not in ['devel']
+
+    - name: Delete all (non hidden) directory in our collection
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects[ansible_collection_repo].src_dir }}"
+      shell: 'find . -maxdepth 1 -mindepth 1 -type d -not -path "*/\.*" -exec rm -rf "{}" \;'
