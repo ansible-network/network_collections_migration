@@ -6,13 +6,19 @@ netcommon:
   - network/restconf/*
   modules:
   - network/cli/*
+  - network/files/*
+  - network/interface/*
+  - network/layer2/*
+  - network/layer3/*
   - network/netconf/*
+  - network/protocol/*
   - network/restconf/*
+  - network/routing/*
+  - network/system/*
   action:
   - cli_command.py
   - cli_config.py
-  - net_get.py
-  - net_put.py
+  - net_*
   - netconf.py
   - network.py
   become:
