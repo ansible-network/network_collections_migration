@@ -24,9 +24,6 @@ First edit the .zuul.yaml file in this folder, adding the following 2 jobs:
 
     - job:
         name: propose-network-collections-migration-example-fake
-        dependencies:
-          - name: propose-network-collections-migration-ansible-netcommon
-            soft: true
         parent: propose-network-collections-migration-base
         required-projects:
           - name: github.com/ansible-network/ansible_collections.example.fake
