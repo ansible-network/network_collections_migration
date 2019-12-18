@@ -1,8 +1,8 @@
 network_collections_migration
 =============================
 
-This project used the
-https://github.com/ansible-community/collection_migration to migrate
+This project uses
+https://github.com/ansible-network/collection_migration to migrate
 collection content from ansibe/ansible into ansible-network specific
 collections.
 
