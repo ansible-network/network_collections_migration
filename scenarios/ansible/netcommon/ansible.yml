@@ -28,6 +28,7 @@ netcommon:
   - napalm.py
   - netconf.py
   - network_cli.py
+  - persistent.py
   doc_fragments:
   - netconf.py
   filter:
