@@ -22,3 +22,13 @@
       args:
         chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/collection_migration'].src_dir }}"
       shell: "ln -s {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible/ansible'].src_dir }} .cache/releases/devel.git"
+
+    - name: Rename deprecated modules (network)
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible/ansible'].src_dir }}/lib/ansible/modules/network"
+      shell: "python {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/rename_deprecated.py"
+
+    - name: git commit to keep migrate.py happy
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible/ansible'].src_dir }}"
+      shell: "git add --all && git commit -a -m 'rename deprecated'"
