@@ -22,9 +22,7 @@ def sequence_indent_four(s):
 
 def read_yaml_file(filename):
     yaml = YAML()
-    yaml.preserve_quotes = True
     yaml.explicit_start = True
-    yaml.default_flow_style = False
     yaml.indent(mapping=2, sequence=4, offset=2)
     yaml.allow_unicode = True
 
@@ -38,7 +36,6 @@ def read_yaml_file(filename):
 
 def read_meta_file(filename):
     yaml = YAML()
-    yaml.preserve_quotes = True
     yaml.explicit_start = True
     yaml.indent(mapping=2, sequence=4, offset=2)
 
