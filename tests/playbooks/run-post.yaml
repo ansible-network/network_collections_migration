@@ -36,6 +36,11 @@
         chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
       shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/.tox/venv/bin/python {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/yamlf.py"
 
+    - name: Run tools/cleanup_yaml.sh
+      args:
+        chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
+      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_yaml.sh"
+
     - name: Run black to format collection
       include_role:
         name: tox
