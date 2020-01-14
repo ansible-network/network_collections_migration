@@ -62,6 +62,16 @@
       proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.cisco.iosxr
 
 - job:
+    name: propose-network-collections-migration-vyos-vyos
+    parent: propose-network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-network/ansible_collections.vyos.vyos
+    vars:
+      ansible_collection_namespace: vyos
+      ansible_collection_name: vyos
+      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.vyos.vyos
+
+- job:
     name: network-collections-migration-base
     parent: unittests
     pre-run: tests/playbooks/pre.yaml
@@ -117,6 +127,15 @@
       ansible_collection_name: iosxr
 
 - job:
+    name: network-collections-migration-vyos-vyos
+    parent: network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-network/ansible_collections.vyos.vyos
+    vars:
+      ansible_collection_namespace: vyos
+      ansible_collection_name: vyos
+
+- job:
     name: build-ansible-minimal
     parent: unittests
     pre-run: tests/playbooks/pre.yaml
@@ -143,6 +162,7 @@
         - network-collections-migration-arista-eos
         - network-collections-migration-cisco-ios
         - network-collections-migration-cisco-iosxr
+        - network-collections-migration-vyos-vyos
     gate:
       queue: network-collections-migration
       jobs:
@@ -151,12 +171,14 @@
         - network-collections-migration-arista-eos
         - network-collections-migration-cisco-ios
         - network-collections-migration-cisco-iosxr
+        - network-collections-migration-vyos-vyos
     post:
       jobs:
         - propose-network-collections-migration-ansible-netcommon
         - propose-network-collections-migration-arista-eos
         - propose-network-collections-migration-cisco-ios
         - propose-network-collections-migration-cisco-iosxr
+        - propose-network-collections-migration-vyos-vyos
 
 - project:
     templates:
@@ -167,3 +189,4 @@
         - propose-network-collections-migration-arista-eos
         - propose-network-collections-migration-cisco-ios
         - propose-network-collections-migration-cisco-iosxr
+        - propose-network-collections-migration-vyos-vyos
