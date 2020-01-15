@@ -88,6 +88,9 @@
     nodeset: fedora-latest-1vcpu
     vars:
       ansible_collection_repo: "github.com/ansible-network/ansible_collections.{{ ansible_collection_namespace }}.{{ ansible_collection_name }}"
+    files:
+      - tests/playbooks/.*
+      - tools/.*
 
 - job:
     name: network-collections-migration-ansible-netcommon
@@ -98,6 +101,8 @@
       ansible_collection_namespace: ansible
       ansible_collection_name: netcommon
       proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.ansible.netcommon
+    files:
+      - scenarios/ansible/netcommon/.*
 
 - job:
     name: network-collections-migration-arista-eos
@@ -107,6 +112,9 @@
     vars:
       ansible_collection_namespace: arista
       ansible_collection_name: eos
+    files:
+      - scenarios/ansible/netcommon/.*
+      - scenarios/arista/eos/.*
 
 - job:
     name: network-collections-migration-cisco-ios
@@ -116,6 +124,9 @@
     vars:
       ansible_collection_namespace: cisco
       ansible_collection_name: ios
+    files:
+      - scenarios/ansible/netcommon/.*
+      - scenarios/cisco/ios/.*
 
 - job:
     name: network-collections-migration-cisco-iosxr
@@ -125,6 +136,9 @@
     vars:
       ansible_collection_namespace: cisco
       ansible_collection_name: iosxr
+    files:
+      - scenarios/ansible/netcommon/.*
+      - scenarios/cisco/iosxr/.*
 
 - job:
     name: network-collections-migration-vyos-vyos
@@ -134,6 +148,9 @@
     vars:
       ansible_collection_namespace: vyos
       ansible_collection_name: vyos
+    files:
+      - scenarios/ansible/netcommon/.*
+      - scenarios/vyos/vyos/.*
 
 - job:
     name: build-ansible-minimal
@@ -150,6 +167,9 @@
       - name: github.com/ansible-network/network_collections_migration
     timeout: 5400
     nodeset: fedora-latest-1vcpu
+    files:
+      - tests/playbooks/.*
+      - tools/.*
 
 - project-template:
     name: network-collections-migration
