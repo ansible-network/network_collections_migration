@@ -88,9 +88,6 @@
     nodeset: fedora-latest-1vcpu
     vars:
       ansible_collection_repo: "github.com/ansible-network/ansible_collections.{{ ansible_collection_namespace }}.{{ ansible_collection_name }}"
-    files:
-      - tests/playbooks/.*
-      - tools/.*
 
 - job:
     name: network-collections-migration-ansible-netcommon
@@ -103,6 +100,8 @@
       proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.ansible.netcommon
     files:
       - scenarios/ansible/netcommon/.*
+      - tests/playbooks/.*
+      - tools/.*
 
 - job:
     name: network-collections-migration-arista-eos
@@ -115,6 +114,8 @@
     files:
       - scenarios/ansible/netcommon/.*
       - scenarios/arista/eos/.*
+      - tests/playbooks/.*
+      - tools/.*
 
 - job:
     name: network-collections-migration-cisco-ios
@@ -127,6 +128,8 @@
     files:
       - scenarios/ansible/netcommon/.*
       - scenarios/cisco/ios/.*
+      - tests/playbooks/.*
+      - tools/.*
 
 - job:
     name: network-collections-migration-cisco-iosxr
@@ -139,6 +142,8 @@
     files:
       - scenarios/ansible/netcommon/.*
       - scenarios/cisco/iosxr/.*
+      - tests/playbooks/.*
+      - tools/.*
 
 - job:
     name: network-collections-migration-vyos-vyos
@@ -151,6 +156,8 @@
     files:
       - scenarios/ansible/netcommon/.*
       - scenarios/vyos/vyos/.*
+      - tests/playbooks/.*
+      - tools/.*
 
 - job:
     name: build-ansible-minimal
