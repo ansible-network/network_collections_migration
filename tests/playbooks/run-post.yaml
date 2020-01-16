@@ -20,6 +20,12 @@
         content: "{{ ansible_collection_name }}"
         dest: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration/target-prefixes.network"
 
+    - name: Create target-prefixes.network for ansible-test (netcommon)
+      copy:
+        content: netconf
+        dest: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration/target-prefixes.network"
+      when: ansible_collection_name == 'netcommon'
+
     - name: Copy network-integration.requirements.txt for ansible-test
       copy:
         dest: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration/"
@@ -30,6 +36,12 @@
       args:
         chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
       shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_tests.sh"
+
+    - name: Run tools/cleanup_netcommon_tests.sh
+      args:
+        chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
+      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_netcommon_tests.sh"
+      when: ansible_collection_name == 'netcommon'
 
     - name: Run yamlf to format collection
       args:
