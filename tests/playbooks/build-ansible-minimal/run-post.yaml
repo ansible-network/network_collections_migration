@@ -2,8 +2,8 @@
   tasks:
     - name: Run migration
       args:
-        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/collection_migration'].src_dir }}"
-      shell: "~/venv/bin/python migrate.py -m -b -R -s {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/collection_migration'].src_dir }}/scenarios/minimal"
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-community/collection_migration'].src_dir }}"
+      shell: "~/venv/bin/python migrate.py -m -R -s {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-community/collection_migration'].src_dir }}/scenarios/base --convert-symlinks --skip-publish"
 
     - name: Build python sdist
       args:
