@@ -199,13 +199,17 @@
     timeout: 5400
     nodeset: fedora-latest-1vcpu
 
+- job:
+    name: build-ansible-base
+    parent: build-ansible-minimal
+
 - project-template:
     name: network-collections-migration
     description: |
       A common set of migration jobs used by ansible network team
     check:
       jobs:
-        - build-ansible-minimal
+        - build-ansible-base
         - network-collections-migration-ansible-netcommon
         - network-collections-migration-arista-eos
         - network-collections-migration-cisco-ios
@@ -215,7 +219,7 @@
     gate:
       queue: network-collections-migration
       jobs:
-        - build-ansible-minimal
+        - build-ansible-base
         - network-collections-migration-ansible-netcommon
         - network-collections-migration-arista-eos
         - network-collections-migration-cisco-ios
