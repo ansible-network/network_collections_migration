@@ -32,6 +32,12 @@
         remote_src: true
         src: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible/ansible'].src_dir }}/test/integration/network-integration.requirements.txt"
 
+    - name: Run tools/cleanup_nxos.sh
+      args:
+        chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/"
+      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_nxos.sh"
+      when: ansible_collection_name == 'nxos'
+
     - name: Run tools/cleanup_tests.sh
       args:
         chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"

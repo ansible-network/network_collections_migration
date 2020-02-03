@@ -62,6 +62,16 @@
       proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.cisco.iosxr
 
 - job:
+    name: propose-network-collections-migration-cisco-nxos
+    parent: propose-network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-network/ansible_collections.cisco.nxos
+    vars:
+      ansible_collection_namespace: cisco
+      ansible_collection_name: nxos
+      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.cisco.nxos
+
+- job:
     name: propose-network-collections-migration-junipernetworks-junos
     parent: propose-network-collections-migration-base
     required-projects:
@@ -156,6 +166,20 @@
       - tools/.*
 
 - job:
+    name: network-collections-migration-cisco-nxos
+    parent: network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-network/ansible_collections.cisco.nxos
+    vars:
+      ansible_collection_namespace: cisco
+      ansible_collection_name: nxos
+    files:
+      - scenarios/ansible/netcommon/.*
+      - scenarios/cisco/nxos/.*
+      - tests/playbooks/.*
+      - tools/.*
+
+- job:
     name: network-collections-migration-junipernetworks-junos
     parent: network-collections-migration-base
     required-projects:
@@ -214,6 +238,7 @@
         - network-collections-migration-arista-eos
         - network-collections-migration-cisco-ios
         - network-collections-migration-cisco-iosxr
+        - network-collections-migration-cisco-nxos
         - network-collections-migration-junipernetworks-junos
         - network-collections-migration-vyos-vyos
     gate:
@@ -224,6 +249,7 @@
         - network-collections-migration-arista-eos
         - network-collections-migration-cisco-ios
         - network-collections-migration-cisco-iosxr
+        - network-collections-migration-cisco-nxos
         - network-collections-migration-junipernetworks-junos
         - network-collections-migration-vyos-vyos
     post:
@@ -232,6 +258,7 @@
         - propose-network-collections-migration-arista-eos
         - propose-network-collections-migration-cisco-ios
         - propose-network-collections-migration-cisco-iosxr
+        - propose-network-collections-migration-cisco-nxos
         - propose-network-collections-migration-junipernetworks-junos
         - propose-network-collections-migration-vyos-vyos
 
@@ -244,5 +271,6 @@
         - propose-network-collections-migration-arista-eos
         - propose-network-collections-migration-cisco-ios
         - propose-network-collections-migration-cisco-iosxr
+        - propose-network-collections-migration-cisco-nxos
         - propose-network-collections-migration-junipernetworks-junos
         - propose-network-collections-migration-vyos-vyos

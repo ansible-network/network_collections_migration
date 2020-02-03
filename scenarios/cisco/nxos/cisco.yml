@@ -1,0 +1,19 @@
+nxos:
+  module_utils:
+  - network/nxos/*
+  - network/nxos/*/*
+  - network/nxos/*/*/*
+  modules:
+  - network/nxos/*
+  - network/nxos/*/*
+  action:
+  - nxos.py
+  - nxos_file_copy.py
+  cliconf:
+  - nxos.py
+  doc_fragments:
+  - nxos.py
+  httpapi:
+  - nxos.py
+  terminal:
+  - nxos.py
