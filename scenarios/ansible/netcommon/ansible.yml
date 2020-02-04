@@ -1,9 +1,4 @@
 netcommon:
-  module_utils:
-  - network/common/*
-  - network/common/*/*
-  - network/netconf/*
-  - network/restconf/*
   modules:
   - network/cli/*
   - network/files/*
@@ -15,6 +10,11 @@ netcommon:
   - network/restconf/*
   - network/routing/*
   - network/system/*
+  module_utils:
+  - network/common/*
+  - network/common/*/*
+  - network/netconf/*
+  - network/restconf/*
   action:
   - cli_command.py
   - cli_config.py
@@ -28,7 +28,6 @@ netcommon:
   - napalm.py
   - netconf.py
   - network_cli.py
-  - paramiko_ssh.py
   - persistent.py
   doc_fragments:
   - netconf.py
