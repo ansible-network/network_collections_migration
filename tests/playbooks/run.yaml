@@ -1,5 +1,12 @@
 - hosts: all
   tasks:
+    - name: Create virtualenv for migration.py
+      shell: virtualenv ~/venv
+
+    - name: Install selinux into virtualenv
+      shell: ~/venv/bin/pip install selinux
+      when: ansible_os_family == "RedHat"
+
     - name: Bootstrap tox environment
       include_role:
         name: tox
@@ -11,7 +18,7 @@
     - name: Install python dependencies
       args:
         chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/collection_migration'].src_dir }}"
-      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/.tox/venv/bin/pip install -r requirements.txt"
+      shell: ~/venv/bin/pip install -r requirements.txt
 
     - name: Create .cache/releases directory
       args:

@@ -3,14 +3,14 @@
     - name: Run migration
       args:
         chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/collection_migration'].src_dir }}"
-      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/.tox/venv/bin/python migrate.py -m -b -R -s {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/collection_migration'].src_dir }}/scenarios/minimal"
+      shell: "~/venv/bin/python migrate.py -m -b -R -s {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/collection_migration'].src_dir }}/scenarios/minimal"
 
     - name: Build python sdist
       args:
         chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible/ansible'].src_dir }}"
       environment:
         _ANSIBLE_SDIST_FROM_MAKEFILE: 1
-      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/.tox/venv/bin/python setup.py sdist"
+      shell: ~/venv/bin/python setup.py sdist
 
     - name: Create artifacts directory
       shell: mkdir ~/artifacts
