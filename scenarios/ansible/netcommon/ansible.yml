@@ -11,6 +11,7 @@ netcommon:
   - network/routing/*
   - network/system/*
   module_utils:
+  - compat/ipaddress.py
   - network/common/*
   - network/common/*/*
   - network/netconf/*
