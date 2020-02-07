@@ -1,0 +1,33 @@
+- hosts: all
+  tasks:
+    - name: Install binary dependencies
+      include_role:
+        name: bindep
+      vars:
+        bindep_dir: "{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}"
+
+    - name: Run test-setup role
+      include_role:
+        name: test-setup
+
+    - name: Create virtualenv for migration.py
+      shell: virtualenv ~/venv
+
+    - name: Install selinux into virtualenv
+      shell: ~/venv/bin/pip install selinux
+      when: ansible_os_family == "RedHat"
+
+    - name: Install python dependencies
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-community/collection_migration'].src_dir }}"
+      shell: ~/venv/bin/pip install -r requirements.txt
+
+    - name: Create .cache/releases directory
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-community/collection_migration'].src_dir }}"
+      shell: mkdir -p .cache/releases
+
+    - name: Symlink ansible/ansible to keep migrate.py happy
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-community/collection_migration'].src_dir }}"
+      shell: "ln -s {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible/ansible'].src_dir }} .cache/releases/devel.git"
