@@ -15,7 +15,7 @@
     timeout: 3600
     nodeset: fedora-latest-1vcpu
     vars:
-      ansible_collection_repo: "github.com/ansible-network/ansible_collections.{{ ansible_collection_namespace }}.{{ ansible_collection_name }}"
+      ansible_collection_repo: "github.com/ansible-collections/{{ ansible_collection_name }}"
 
 - job:
     name: propose-network-collections-migration-base
@@ -25,71 +25,71 @@
     name: propose-network-collections-migration-ansible-netcommon
     parent: propose-network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.ansible.netcommon
+      - name: github.com/ansible-collections/netcommon
     vars:
       ansible_collection_namespace: ansible
       ansible_collection_name: netcommon
-      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.ansible.netcommon
+      proposal_project_src: ~/src/github.com/ansible-collections/netcommon
 
 - job:
     name: propose-network-collections-migration-arista-eos
     parent: propose-network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.arista.eos
+      - name: github.com/ansible-collections/eos
     vars:
       ansible_collection_namespace: arista
       ansible_collection_name: eos
-      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.arista.eos
+      proposal_project_src: ~/src/github.com/ansible-collections/eos
 
 - job:
     name: propose-network-collections-migration-cisco-ios
     parent: propose-network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.cisco.ios
+      - name: github.com/ansible-collections/ios
     vars:
       ansible_collection_namespace: cisco
       ansible_collection_name: ios
-      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.cisco.ios
+      proposal_project_src: ~/src/github.com/ansible-collections/ios
 
 - job:
     name: propose-network-collections-migration-cisco-iosxr
     parent: propose-network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.cisco.iosxr
+      - name: github.com/ansible-collections/iosxr
     vars:
       ansible_collection_namespace: cisco
       ansible_collection_name: iosxr
-      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.cisco.iosxr
+      proposal_project_src: ~/src/github.com/ansible-collections/iosxr
 
 - job:
     name: propose-network-collections-migration-cisco-nxos
     parent: propose-network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.cisco.nxos
+      - name: github.com/ansible-collections/nxos
     vars:
       ansible_collection_namespace: cisco
       ansible_collection_name: nxos
-      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.cisco.nxos
+      proposal_project_src: ~/src/github.com/ansible-collections/nxos
 
 - job:
     name: propose-network-collections-migration-junipernetworks-junos
     parent: propose-network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.junipernetworks.junos
+      - name: github.com/ansible-collections/junos
     vars:
       ansible_collection_namespace: junipernetworks
       ansible_collection_name: junos
-      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.junipernetworks.junos
+      proposal_project_src: ~/src/github.com/ansible-collections/junos
 
 - job:
     name: propose-network-collections-migration-vyos-vyos
     parent: propose-network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.vyos.vyos
+      - name: github.com/ansible-collections/vyos
     vars:
       ansible_collection_namespace: vyos
       ansible_collection_name: vyos
-      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.vyos.vyos
+      proposal_project_src: ~/src/github.com/ansible-collections/vyos
 
 - job:
     name: network-collections-migration-base
@@ -107,17 +107,17 @@
     timeout: 3600
     nodeset: fedora-latest-1vcpu
     vars:
-      ansible_collection_repo: "github.com/ansible-network/ansible_collections.{{ ansible_collection_namespace }}.{{ ansible_collection_name }}"
+      ansible_collection_repo: "github.com/ansible-collections/{{ ansible_collection_name }}"
 
 - job:
     name: network-collections-migration-ansible-netcommon
     parent: network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.ansible.netcommon
+      - name: github.com/ansible-collections/netcommon
     vars:
       ansible_collection_namespace: ansible
       ansible_collection_name: netcommon
-      proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.ansible.netcommon
+      proposal_project_src: ~/src/github.com/ansible-collections/netcommon
     files:
       - scenarios/ansible/netcommon/.*
       - tests/playbooks/.*
@@ -127,7 +127,7 @@
     name: network-collections-migration-arista-eos
     parent: network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.arista.eos
+      - name: github.com/ansible-collections/eos
     vars:
       ansible_collection_namespace: arista
       ansible_collection_name: eos
@@ -141,7 +141,7 @@
     name: network-collections-migration-cisco-ios
     parent: network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.cisco.ios
+      - name: github.com/ansible-collections/ios
     vars:
       ansible_collection_namespace: cisco
       ansible_collection_name: ios
@@ -155,7 +155,7 @@
     name: network-collections-migration-cisco-iosxr
     parent: network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.cisco.iosxr
+      - name: github.com/ansible-collections/iosxr
     vars:
       ansible_collection_namespace: cisco
       ansible_collection_name: iosxr
@@ -169,7 +169,7 @@
     name: network-collections-migration-cisco-nxos
     parent: network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.cisco.nxos
+      - name: github.com/ansible-collections/nxos
     vars:
       ansible_collection_namespace: cisco
       ansible_collection_name: nxos
@@ -183,7 +183,7 @@
     name: network-collections-migration-junipernetworks-junos
     parent: network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.junipernetworks.junos
+      - name: github.com/ansible-collections/junos
     vars:
       ansible_collection_namespace: junipernetworks
       ansible_collection_name: junos
@@ -197,7 +197,7 @@
     name: network-collections-migration-vyos-vyos
     parent: network-collections-migration-base
     required-projects:
-      - name: github.com/ansible-network/ansible_collections.vyos.vyos
+      - name: github.com/ansible-collections/vyos
     vars:
       ansible_collection_namespace: vyos
       ansible_collection_name: vyos
