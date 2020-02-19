@@ -1,13 +1,8 @@
 - hosts: all
   tasks:
-    - name: Run migration
-      args:
-        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-community/collection_migration'].src_dir }}"
-      shell: "~/venv/bin/python migrate.py -m -R -s {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-community/collection_migration'].src_dir }}/scenarios/base --convert-symlinks --skip-publish"
-
     - name: Build python sdist
       args:
-        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible/ansible'].src_dir }}"
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-collection-migration/ansible-base'].src_dir }}"
       environment:
         _ANSIBLE_SDIST_FROM_MAKEFILE: 1
       shell: ~/venv/bin/python setup.py sdist
@@ -17,5 +12,5 @@
 
     - name: Move sdist into artifacts directory
       args:
-        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible/ansible'].src_dir }}"
+        chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-collection-migration/ansible-base'].src_dir }}"
       shell: mv dist/*.tar.gz ~/artifacts
