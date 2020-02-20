@@ -3,7 +3,7 @@ network_collections_migration
 
 This project uses
 https://github.com/ansible-network/collection_migration to migrate
-collection content from ansibe/ansible into ansible-network specific
+collection content from ansibe/ansible into ansible-collections specific
 collections.
 
 Adding a new job
@@ -12,7 +12,7 @@ Adding a new job
 We'll be adding a zuul job to migrate content to the following fake
 collection:
 
-  https://github.com/ansible-network/ansible_collection.example.fake
+  https://github.com/ansible-collections/fake
 
 In this case, then collection namespace is 'example' and the name is 'fake'.
 
@@ -26,17 +26,17 @@ First edit the .zuul.yaml file in this folder, adding the following 2 jobs:
         name: propose-network-collections-migration-example-fake
         parent: propose-network-collections-migration-base
         required-projects:
-          - name: github.com/ansible-network/ansible_collections.example.fake
+          - name: github.com/ansible-collections/fake
         vars:
           ansible_collection_namespace: example
           ansible_collection_name: fake
-          proposal_project_src: ~/src/github.com/ansible-network/ansible_collections.example.fake
+          proposal_project_src: ~/src/github.com/ansible-collections/fake
 
     - job:
         name: network-collections-migration-example-fake
         parent: network-collections-migration-base
         required-projects:
-          - name: github.com/ansible-network/ansible_collections.example.fake
+          - name: github.com/ansible-collections/fake
         vars:
           ansible_collection_namespace: example
           ansible_collection_name: fake
@@ -46,7 +46,7 @@ gate pipelines to validate we can create the content properly.  Where the
 propose-network-collections-migration-example-fake jobs, run in the post /
 periodic pipelines to create new PRs if needed against:
 
-  https://github.com/ansible-network/ansible_collection.example.fake
+  https://github.com/ansible-collections/fake
 
 While still editing .zuul.yaml add the jobs to the pipelines:
 
