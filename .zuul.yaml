@@ -82,6 +82,16 @@
       proposal_project_src: ~/src/github.com/ansible-collections/junos
 
 - job:
+    name: propose-network-collections-migration-openvswitch-openvswitch
+    parent: propose-network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-collections/openvswitch
+    vars:
+      ansible_collection_namespace: openvswitch
+      ansible_collection_name: openvswitch
+      proposal_project_src: ~/src/github.com/ansible-collections/openvswitch
+
+- job:
     name: propose-network-collections-migration-vyos-vyos
     parent: propose-network-collections-migration-base
     required-projects:
@@ -194,6 +204,20 @@
       - tools/.*
 
 - job:
+    name: network-collections-migration-openvswitch-openvswitch
+    parent: network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-collections/openvswitch
+    vars:
+      ansible_collection_namespace: openvswitch
+      ansible_collection_name: openvswitch
+    files:
+      - scenarios/ansible/netcommon/.*
+      - scenarios/openvswitch/openvswitch/.*
+      - tests/playbooks/.*
+      - tools/.*
+
+- job:
     name: network-collections-migration-vyos-vyos
     parent: network-collections-migration-base
     required-projects:
@@ -237,6 +261,7 @@
         - network-collections-migration-cisco-iosxr
         - network-collections-migration-cisco-nxos
         - network-collections-migration-junipernetworks-junos
+        - network-collections-migration-openvswitch-openvswitch
         - network-collections-migration-vyos-vyos
     gate:
       queue: network-collections-migration
@@ -248,6 +273,7 @@
         - network-collections-migration-cisco-iosxr
         - network-collections-migration-cisco-nxos
         - network-collections-migration-junipernetworks-junos
+        - network-collections-migration-openvswitch-openvswitch
         - network-collections-migration-vyos-vyos
     post:
       jobs:
@@ -257,6 +283,7 @@
         - propose-network-collections-migration-cisco-iosxr
         - propose-network-collections-migration-cisco-nxos
         - propose-network-collections-migration-junipernetworks-junos
+        - propose-network-collections-migration-openvswitch-openvswitch
         - propose-network-collections-migration-vyos-vyos
 
 - project:
@@ -270,4 +297,5 @@
         - propose-network-collections-migration-cisco-iosxr
         - propose-network-collections-migration-cisco-nxos
         - propose-network-collections-migration-junipernetworks-junos
+        - propose-network-collections-migration-openvswitch-openvswitch
         - propose-network-collections-migration-vyos-vyos
