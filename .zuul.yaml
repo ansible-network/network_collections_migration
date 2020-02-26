@@ -72,6 +72,16 @@
       proposal_project_src: ~/src/github.com/ansible-collections/nxos
 
 - job:
+    name: propose-network-collections-migration-frr-frr
+    parent: propose-network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-collections/frr
+    vars:
+      ansible_collection_namespace: frr
+      ansible_collection_name: frr
+      proposal_project_src: ~/src/github.com/ansible-collections/frr
+
+- job:
     name: propose-network-collections-migration-junipernetworks-junos
     parent: propose-network-collections-migration-base
     required-projects:
@@ -200,6 +210,20 @@
       - tools/.*
 
 - job:
+    name: network-collections-migration-frr-frr
+    parent: network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-collections/frr
+    vars:
+      ansible_collection_namespace: frr
+      ansible_collection_name: frr
+    files:
+      - scenarios/ansible/netcommon/.*
+      - scenarios/arista/frr/.*
+      - tests/playbooks/.*
+      - tools/.*
+
+- job:
     name: network-collections-migration-junipernetworks-junos
     parent: network-collections-migration-base
     required-projects:
@@ -284,6 +308,7 @@
         - network-collections-migration-cisco-ios
         - network-collections-migration-cisco-iosxr
         - network-collections-migration-cisco-nxos
+        - network-collections-migration-frr-frr
         - network-collections-migration-junipernetworks-junos
         - network-collections-migration-openvswitch-openvswitch
         - network-collections-migration-skydive-skydive
@@ -297,6 +322,7 @@
         - network-collections-migration-cisco-ios
         - network-collections-migration-cisco-iosxr
         - network-collections-migration-cisco-nxos
+        - network-collections-migration-frr-frr
         - network-collections-migration-junipernetworks-junos
         - network-collections-migration-openvswitch-openvswitch
         - network-collections-migration-skydive-skydive
@@ -308,6 +334,7 @@
         - propose-network-collections-migration-cisco-ios
         - propose-network-collections-migration-cisco-iosxr
         - propose-network-collections-migration-cisco-nxos
+        - propose-network-collections-migration-frr-frr
         - propose-network-collections-migration-junipernetworks-junos
         - propose-network-collections-migration-openvswitch-openvswitch
         - propose-network-collections-migration-skydive-skydive
@@ -323,6 +350,7 @@
         - propose-network-collections-migration-cisco-ios
         - propose-network-collections-migration-cisco-iosxr
         - propose-network-collections-migration-cisco-nxos
+        - propose-network-collections-migration-frr-frr
         - propose-network-collections-migration-junipernetworks-junos
         - propose-network-collections-migration-openvswitch-openvswitch
         - propose-network-collections-migration-skydive-skydive
