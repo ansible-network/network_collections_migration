@@ -92,6 +92,16 @@
       proposal_project_src: ~/src/github.com/ansible-collections/openvswitch
 
 - job:
+    name: propose-network-collections-migration-skydive-skydive
+    parent: propose-network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-collections/skydive
+    vars:
+      ansible_collection_namespace: skydive
+      ansible_collection_name: skydive
+      proposal_project_src: ~/src/github.com/ansible-collections/skydive
+
+- job:
     name: propose-network-collections-migration-vyos-vyos
     parent: propose-network-collections-migration-base
     required-projects:
@@ -218,6 +228,20 @@
       - tools/.*
 
 - job:
+    name: network-collections-migration-skydive-skydive
+    parent: network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-collections/skydive
+    vars:
+      ansible_collection_namespace: skydive
+      ansible_collection_name: skydive
+    files:
+      - scenarios/ansible/netcommon/.*
+      - scenarios/skydive/skydive/.*
+      - tests/playbooks/.*
+      - tools/.*
+
+- job:
     name: network-collections-migration-vyos-vyos
     parent: network-collections-migration-base
     required-projects:
@@ -262,6 +286,7 @@
         - network-collections-migration-cisco-nxos
         - network-collections-migration-junipernetworks-junos
         - network-collections-migration-openvswitch-openvswitch
+        - network-collections-migration-skydive-skydive
         - network-collections-migration-vyos-vyos
     gate:
       queue: network-collections-migration
@@ -274,6 +299,7 @@
         - network-collections-migration-cisco-nxos
         - network-collections-migration-junipernetworks-junos
         - network-collections-migration-openvswitch-openvswitch
+        - network-collections-migration-skydive-skydive
         - network-collections-migration-vyos-vyos
     post:
       jobs:
@@ -284,6 +310,7 @@
         - propose-network-collections-migration-cisco-nxos
         - propose-network-collections-migration-junipernetworks-junos
         - propose-network-collections-migration-openvswitch-openvswitch
+        - propose-network-collections-migration-skydive-skydive
         - propose-network-collections-migration-vyos-vyos
 
 - project:
@@ -298,4 +325,5 @@
         - propose-network-collections-migration-cisco-nxos
         - propose-network-collections-migration-junipernetworks-junos
         - propose-network-collections-migration-openvswitch-openvswitch
+        - propose-network-collections-migration-skydive-skydive
         - propose-network-collections-migration-vyos-vyos

@@ -15,49 +15,59 @@
         chdir: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/collection_migration'].src_dir }}/.cache/collections/ansible_collections/{{ ansible_collection_namespace }}/{{ ansible_collection_name }}"
       shell: "mv * {{ ansible_user_dir }}/{{ zuul.projects[ansible_collection_repo].src_dir }}"
 
-    - name: Create target-prefixes.network for ansible-test
-      copy:
-        content: "{{ ansible_collection_name }}"
-        dest: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration/target-prefixes.network"
+    - name: Check if tests/integration exist
+      stat:
+        path: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
+      register: _tests_dir
 
-    - name: Create target-prefixes.network for ansible-test (netcommon)
-      copy:
-        content: netconf
-        dest: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration/target-prefixes.network"
-      when: ansible_collection_name == 'netcommon'
+    - name: Migrate tests
+      block:
+        - name: Create target-prefixes.network for ansible-test
+          copy:
+            content: "{{ ansible_collection_name }}"
+            dest: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration/target-prefixes.network"
 
-    - name: Copy network-integration.requirements.txt for ansible-test
-      copy:
-        dest: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration/"
-        remote_src: true
-        src: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible/ansible'].src_dir }}/test/integration/network-integration.requirements.txt"
+        - name: Create target-prefixes.network for ansible-test (netcommon)
+          copy:
+            content: netconf
+            dest: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration/target-prefixes.network"
+          when: ansible_collection_name == 'netcommon'
 
-    - name: Run tools/cleanup_nxos.sh
-      args:
-        chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/"
-      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_nxos.sh"
-      when: ansible_collection_name == 'nxos'
+        - name: Copy network-integration.requirements.txt for ansible-test
+          copy:
+            dest: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration/"
+            remote_src: true
+            src: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible/ansible'].src_dir }}/test/integration/network-integration.requirements.txt"
 
-    - name: Run tools/cleanup_tests.sh
-      args:
-        chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
-      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_tests.sh"
+        - name: Run tools/cleanup_nxos.sh
+          args:
+            chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/"
+          shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_nxos.sh"
+          when: ansible_collection_name == 'nxos'
 
-    - name: Run tools/cleanup_netcommon_tests.sh
-      args:
-        chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
-      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_netcommon_tests.sh"
-      when: ansible_collection_name == 'netcommon'
+        - name: Run tools/cleanup_tests.sh
+          args:
+            chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
+          shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_tests.sh"
 
-    - name: Run yamlf to format collection
-      args:
-        chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
-      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/.tox/venv/bin/python {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/yamlf.py"
+        - name: Run tools/cleanup_netcommon_tests.sh
+          args:
+            chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
+          shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_netcommon_tests.sh"
+          when: ansible_collection_name == 'netcommon'
 
-    - name: Run tools/cleanup_yaml.sh
-      args:
-        chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
-      shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_yaml.sh"
+        - name: Run yamlf to format collection
+          args:
+            chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
+          shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/.tox/venv/bin/python {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/yamlf.py"
+
+        - name: Run tools/cleanup_yaml.sh
+          args:
+            chdir: "{{ zuul.projects[ansible_collection_repo].src_dir }}/tests/integration"
+          shell: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/network_collections_migration'].src_dir }}/tools/cleanup_yaml.sh"
+      when:
+        - _tests_dir.stat.exists
+        - _tests_dir.stat.isdir
 
     - name: Run black to format collection
       include_role:
