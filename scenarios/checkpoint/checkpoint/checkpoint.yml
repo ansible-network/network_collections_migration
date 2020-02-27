@@ -5,7 +5,7 @@ checkpoint:
   - checkpoint_objects.py
   httpapi:
   - checkpoint.py
-  module_utils:
-  - network/checkpoint/*
   modules:
   - network/check_point/*
+  module_utils:
+  - network/checkpoint/*
