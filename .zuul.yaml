@@ -42,6 +42,16 @@
       proposal_project_src: ~/src/github.com/ansible-collections/eos
 
 - job:
+    name: propose-network-collections-migration-checkpoint-checkpoint
+    parent: propose-network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-collections/checkpoint
+    vars:
+      ansible_collection_namespace: checkpoint
+      ansible_collection_name: checkpoint
+      proposal_project_src: ~/src/github.com/ansible-collections/checkpoint
+
+- job:
     name: propose-network-collections-migration-cisco-ios
     parent: propose-network-collections-migration-base
     required-projects:
@@ -164,6 +174,20 @@
     files:
       - scenarios/ansible/netcommon/.*
       - scenarios/arista/eos/.*
+      - tests/playbooks/.*
+      - tools/.*
+
+- job:
+    name: network-collections-migration-checkpoint-checkpoint
+    parent: network-collections-migration-base
+    required-projects:
+      - name: github.com/ansible-collections/checkpoint
+    vars:
+      ansible_collection_namespace: checkpoint
+      ansible_collection_name: checkpoint
+    files:
+      - scenarios/ansible/netcommon/.*
+      - scenarios/arista/checkpoint/.*
       - tests/playbooks/.*
       - tools/.*
 
@@ -305,6 +329,7 @@
         - build-ansible-base
         - network-collections-migration-ansible-netcommon
         - network-collections-migration-arista-eos
+        - network-collections-migration-checkpoint-checkpoint
         - network-collections-migration-cisco-ios
         - network-collections-migration-cisco-iosxr
         - network-collections-migration-cisco-nxos
@@ -319,6 +344,7 @@
         - build-ansible-base
         - network-collections-migration-ansible-netcommon
         - network-collections-migration-arista-eos
+        - network-collections-migration-checkpoint-checkpoint
         - network-collections-migration-cisco-ios
         - network-collections-migration-cisco-iosxr
         - network-collections-migration-cisco-nxos
@@ -331,6 +357,7 @@
       jobs:
         - propose-network-collections-migration-ansible-netcommon
         - propose-network-collections-migration-arista-eos
+        - propose-network-collections-migration-checkpoint-checkpoint
         - propose-network-collections-migration-cisco-ios
         - propose-network-collections-migration-cisco-iosxr
         - propose-network-collections-migration-cisco-nxos
@@ -347,6 +374,7 @@
       jobs:
         - propose-network-collections-migration-ansible-netcommon
         - propose-network-collections-migration-arista-eos
+        - propose-network-collections-migration-checkpoint-checkpoint
         - propose-network-collections-migration-cisco-ios
         - propose-network-collections-migration-cisco-iosxr
         - propose-network-collections-migration-cisco-nxos
