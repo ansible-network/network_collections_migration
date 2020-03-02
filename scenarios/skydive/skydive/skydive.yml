@@ -3,7 +3,7 @@ skydive:
   - skydive.py
   lookup:
   - skydive.py
-  module_utils:
-  - network/skydive/*
   modules:
+  - network/skydive/*
+  module_utils:
   - network/skydive/*
