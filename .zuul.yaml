@@ -335,7 +335,8 @@
     run: tests/playbooks/build-ansible-minimal/run-post.yaml
     post-run: tests/playbooks/build-ansible-minimal/post.yaml
     required-projects:
-      - name: github.com/ansible-collection-migration/ansible-base
+      - name: github.com/ansible/ansible
+        override-checkout: temp-2.10-devel
       - name: github.com/ansible-network/network_collections_migration
     timeout: 5400
     nodeset: fedora-latest-1vcpu
@@ -351,37 +352,10 @@
     check:
       jobs:
         - build-ansible-base
-        - network-collections-migration-ansible-netcommon
-        - network-collections-migration-arista-eos
-        - network-collections-migration-checkpoint-checkpoint
-        - network-collections-migration-cisco-asa
-        - network-collections-migration-cisco-ios
-        - network-collections-migration-cisco-iosxr
-        - network-collections-migration-cisco-nxos
-        - network-collections-migration-frr-frr
-        - network-collections-migration-junipernetworks-junos
-        - network-collections-migration-openvswitch-openvswitch
-        - network-collections-migration-skydive-skydive
-        - network-collections-migration-vyos-vyos
     gate:
       queue: network-collections-migration
       jobs:
         - build-ansible-base
-        - network-collections-migration-ansible-netcommon
-        - network-collections-migration-arista-eos
-        - network-collections-migration-checkpoint-checkpoint
-        - network-collections-migration-cisco-asa
-        - network-collections-migration-cisco-ios
-        - network-collections-migration-cisco-iosxr
-        - network-collections-migration-cisco-nxos
-        - network-collections-migration-frr-frr
-        - network-collections-migration-junipernetworks-junos
-        - network-collections-migration-openvswitch-openvswitch
-        - network-collections-migration-skydive-skydive
-        - network-collections-migration-vyos-vyos
-    post:
-      jobs:
-        - propose-network-collections-migration-cisco-asa
 
 - project:
     templates:
